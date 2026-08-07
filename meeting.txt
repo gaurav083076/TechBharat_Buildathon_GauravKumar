@@ -1,0 +1,14 @@
+Rahul: Okay let's kick off. First item, the pricing page redesign. Where are we?
+Priya: I finished the mockups, they're in Figma. I think we're ready to move to dev.
+Rahul: Great. Priya, can you get the dev tickets filed by next Friday?
+Priya: Yeah I'll take that.
+Amit: One risk - the backend pricing API doesn't support the new discount logic yet. We might block on that.
+Rahul: Good catch. Amit, can you scope that by end of the week and flag if it slips?
+Amit: Sure, I'll take a look.
+Rahul: Second item, the onboarding email sequence. Sana, that was yours right?
+Sana: Yes, I sent the draft copy yesterday, waiting on legal review.
+Rahul: Okay, no action needed there then, just tracking. Let's decide - are we launching pricing changes end of the quarter or pushing to next quarter?
+Priya: I'd say end of the quarter is realistic if the API work doesn't block us.
+Rahul: Agreed, let's lock end of the quarter as the target.
+Amit: I'm not fully confident on that given the API risk, just flagging.
+Rahul: Noted. Let's regroup after Amit's scoping. Anything else? No? Okay, that's it for today.

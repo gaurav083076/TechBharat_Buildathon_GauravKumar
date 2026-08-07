@@ -1,0 +1,51 @@
+Rahul: Alright, let's get started. We've got a lot to cover today - sprint review, the pricing launch, and the Q3 planning kickoff. Let's start with sprint review.
+Priya: Sure. This sprint we shipped the new checkout flow and fixed twelve bugs from the backlog. Two items slipped - the dashboard redesign and the export feature.
+Rahul: What happened with the dashboard redesign?
+Priya: We underestimated the complexity of the chart library migration. It's about 70% done.
+Rahul: Okay. Priya, can you finish the dashboard redesign by next Wednesday?
+Priya: Yeah, I'll take that.
+Amit: I can help review the chart migration PR once it's up.
+Rahul: Good. Amit, can you review it within two days of Priya pushing?
+Amit: Sure, I'll take a look as soon as it's up.
+Sana: On the export feature, that one's blocked on the new S3 bucket permissions. I've been waiting on infra for three days.
+Rahul: That's not good. Sana, can you escalate that to infra today?
+Sana: Yeah I'll ping them again.
+Rahul: Let's move to the pricing launch. Priya, where are we on the mockups?
+Priya: Mockups are done and approved. Dev tickets are filed.
+Rahul: Great, and the backend API work Amit was scoping?
+Amit: I finished the scoping doc. The discount logic needs about a week of work, plus two days for testing.
+Rahul: Can you start that this week and have it done by end of next week?
+Amit: Yes, I'll start Monday.
+Rahul: Sana, what's the status on the onboarding emails for the pricing change announcement?
+Sana: Copy is done, waiting on legal review. Legal said they'd get back by Friday.
+Rahul: Okay, let's assume Friday holds. If legal doesn't respond by Friday, Sana, can you follow up with them directly?
+Sana: Sure, I'll follow up Friday afternoon if I haven't heard anything.
+Rahul: Let's talk risks. Any blockers I should know about?
+Amit: The main risk is still the discount logic complexity - if it takes longer than a week, we might miss the end of quarter target.
+Priya: Agreed, that's the biggest risk right now.
+Rahul: Noted, let's revisit that risk in next week's sync. Now, Q3 planning. I want to get a headcount request in by end of month.
+Sana: I can draft the headcount justification doc.
+Rahul: Sana, can you have a draft ready by next Monday?
+Sana: Yes, I'll get a draft together by then.
+Rahul: We also need to decide on the Q3 OKRs. I'm thinking three key results - pricing launch, dashboard v2, and reducing our bug backlog by 30%.
+Priya: I think that's reasonable. Though the dashboard v2 timeline might be tight given what we just discussed.
+Rahul: Fair point. Let's lock in pricing launch and bug backlog reduction as firm OKRs, and mark dashboard v2 as a stretch goal for now.
+Amit: That works for me.
+Rahul: Agreed then - two firm OKRs, one stretch. Let's also talk about the customer escalation from last week - the enterprise client with the API timeout issue.
+Priya: I looked into that. It's a connection pooling issue under high load. I have a fix but it needs load testing before we ship it.
+Rahul: How long for load testing?
+Priya: Give me until Thursday.
+Rahul: Priya, can you get the load test done and the fix shipped by Thursday?
+Priya: Yes, I'll take that.
+Amit: Should we also add monitoring so we catch this earlier next time?
+Rahul: Good idea. Amit, can you set up alerting for connection pool exhaustion?
+Amit: I can do that after the discount logic work, so probably the week after next.
+Rahul: That's fine, no rush on that one. Let's talk about the intern onboarding - we have two new interns starting Monday.
+Sana: I've got the onboarding docs ready. I'll walk them through it Monday morning.
+Rahul: Great. Anything else before we wrap up?
+Amit: Just a heads up, I'll be out Thursday and Friday next week for a conference.
+Rahul: Noted, thanks for the heads up. Priya, anything from your side?
+Priya: Nothing else from me.
+Rahul: Sana?
+Sana: All good here.
+Rahul: Alright, let's wrap up. Quick recap - Priya's got the dashboard redesign and the load test fix, Amit's got the PR review and discount logic work, Sana's got the infra escalation, onboarding emails follow-up, and the headcount doc. Let's regroup same time next week.
