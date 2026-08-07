@@ -70,6 +70,12 @@ python3 main.py sample_data/code_switched_meeting.txt --date 2026-08-06 --contac
 
 Annotated screenshots of the above tests, run and verified: https://excalidraw.com/#json=s3C-wkk8DQcsZBg-3Sl5f,Aw5n8uxtHWFvncdZuBfT1A
 
+## GitHub integration
+
+Issues created by this tool during testing were created in a sandbox repo, per the
+brief's constraint to not connect to a live production tracker:
+https://github.com/gaurav083076/meeting-assistant-sandbox
+
 ## Files
 
 - `ingest.py` - parses the transcript file
