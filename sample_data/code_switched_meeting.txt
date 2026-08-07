@@ -1,0 +1,16 @@
+Rahul: Okay standup shuru karte hain. Priya, kal kya progress hua checkout flow pe?
+Priya: Maine checkout flow complete kar diya hai, but ek bug hai jo payment gateway timeout pe aata hai.
+Rahul: Woh bug kitna critical hai?
+Priya: Thoda critical hai, kyunki high traffic mein zyada dikhta hai. I'll fix it by tomorrow.
+Rahul: Theek hai, Priya tum kal tak fix kar dena.
+Amit: Mera side pe, backend API ka discount logic almost done hai, bas testing baaki hai.
+Rahul: Amit, testing kab tak complete hoga?
+Amit: I think end of the week tak ho jayega, agar koi blocker nahi aaya toh.
+Rahul: Sana, onboarding emails ka kya status hai?
+Sana: Copy ready hai, legal review pending hai abhi. Unhone kaha Friday tak revert karenge.
+Rahul: Okay, agar Friday tak nahi aaya toh Sana tum follow up kar lena unse.
+Sana: Haan, main follow up kar loongi.
+Rahul: Koi aur blocker hai kisi ko?
+Amit: Nahi, sab theek hai mere side se.
+Priya: Same here, no other blockers.
+Rahul: Great, chalo phir milte hain kal.

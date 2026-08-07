@@ -14,6 +14,7 @@ from extract import extract
 from resolve import resolve_date, resolve_owner
 from review import review_action_items
 from github_integration import create_issue, format_issue_from_action_item
+from analytics import compute_analytics
 
 AUDIT_LOG_PATH = "audit_log.jsonl"
 PROCESSED_PATH = "processed_items.json"
@@ -46,6 +47,7 @@ def run_extraction(transcript_path: str, meeting_date: str, contacts_path: str |
     record["action_items"] = resolved_items
     record["meeting_date"] = meeting_date
     record["source_file"] = transcript_path
+    record["analytics"] = compute_analytics(transcript.turns, record)
     return record
 
 

@@ -16,11 +16,15 @@ Rules:
 - owner_raw and due_raw must be near-verbatim phrases from the transcript.
 - If no due date was mentioned, due_raw is null.
 - confidence reflects how explicit the commitment was (below 0.3, consider omitting).
+- For "decisions", only include things the room actually agreed on. If people pushed
+  back, expressed doubt, or the conversation moved on without real agreement, put
+  that under "disagreements" instead - don't flatten it into a decision.
 - Respond with ONLY a JSON object. No prose, no markdown fences."""
 
 _SCHEMA_HINT = """{
   "executive_summary": "string, 2-4 sentences",
   "decisions": ["string", ...],
+  "disagreements": ["string - where the room did not actually reach consensus", ...],
   "open_questions": ["string", ...],
   "risks": ["string", ...],
   "action_items": [
@@ -52,7 +56,7 @@ def extract(transcript_text: str, meeting_date: str, api_key: str | None = None,
             )
         except Exception as e:
             last_err = e
-            wait = 2 ** attempt
+            wait = 2 ** attempt  # 1s, 2s, 4s, 8s
             print(f"API call failed ({e}), retrying in {wait}s...")
             time.sleep(wait)
             continue
