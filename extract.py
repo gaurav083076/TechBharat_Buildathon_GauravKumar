@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import json
 import os
+import time
 
-from anthropic import Anthropic
+from google import genai
+from google.genai import types
 
-_MODEL = "claude-sonnet-4-6"
+_MODEL = "gemini-3.5-flash"
 
 _SYSTEM_PROMPT = """You extract structured records from meeting transcripts.
 
@@ -27,8 +29,8 @@ _SCHEMA_HINT = """{
 }"""
 
 
-def extract(transcript_text: str, meeting_date: str, api_key: str | None = None) -> dict:
-    client = Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
+def extract(transcript_text: str, meeting_date: str, api_key: str | None = None, _retries: int = 3) -> dict:
+    client = genai.Client(api_key=api_key or os.environ.get("GEMINI_API_KEY"))
 
     user_msg = (
         f"Meeting date: {meeting_date}\n\n"
@@ -36,21 +38,36 @@ def extract(transcript_text: str, meeting_date: str, api_key: str | None = None)
         f"Return JSON matching this schema exactly:\n{_SCHEMA_HINT}"
     )
 
-    resp = client.messages.create(
-        model=_MODEL,
-        max_tokens=2000,
-        system=_SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_msg}],
-    )
+    last_err = None
+    for attempt in range(_retries + 1):
+        try:
+            resp = client.models.generate_content(
+                model=_MODEL,
+                contents=user_msg,
+                config=types.GenerateContentConfig(
+                    system_instruction=_SYSTEM_PROMPT,
+                    response_mime_type="application/json",
+                    temperature=0.2,
+                ),
+            )
+        except Exception as e:
+            last_err = e
+            wait = 2 ** attempt
+            print(f"API call failed ({e}), retrying in {wait}s...")
+            time.sleep(wait)
+            continue
 
-    raw = resp.content[0].text.strip()
-    if raw.startswith("```"):
-        raw = raw.strip("`")
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
+        raw = resp.text.strip()
+        if raw.startswith("```"):
+            raw = raw.strip("`")
+            if raw.startswith("json"):
+                raw = raw[4:]
+            raw = raw.strip()
 
-    try:
-        return json.loads(raw)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Model did not return valid JSON. Raw output:\n{raw}") from e
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError:
+            last_err = ValueError(f"Model did not return valid JSON. Raw output:\n{raw}")
+            continue
+
+    raise last_err
