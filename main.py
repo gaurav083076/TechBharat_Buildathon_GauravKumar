@@ -25,7 +25,7 @@ def run_extraction(transcript_path: str, meeting_date: str, contacts_path: str |
     if not transcript.turns:
         raise ValueError("No turns parsed from transcript - check file format.")
 
-    record = extract(transcript.as_text(), meeting_date)
+    record = extract(transcript.as_numbered_text(), meeting_date)
 
     contacts = []
     if contacts_path:
@@ -36,12 +36,24 @@ def run_extraction(transcript_path: str, meeting_date: str, contacts_path: str |
         due_resolved = resolve_date(item.get("due_raw"), meeting_date)
         owner_resolved = resolve_owner(item.get("owner_raw", ""), contacts)
 
+        evidence = None
+        turn_num = item.get("source_turn")
+        if turn_num and 1 <= turn_num <= len(transcript.turns):
+            t = transcript.turns[turn_num - 1]
+            evidence = {
+                "turn": turn_num,
+                "speaker": t.speaker,
+                "quote": t.text,
+                "timestamp": t.start,  # real timestamp for .vtt/.srt, None for .txt
+            }
+
         resolved_items.append({
             **item,
             "due_resolved": due_resolved,
             "due_resolution_failed": item.get("due_raw") is not None and due_resolved is None,
             "owner_resolved": owner_resolved,
             "owner_resolution_failed": owner_resolved is None,
+            "evidence": evidence,
         })
 
     record["action_items"] = resolved_items

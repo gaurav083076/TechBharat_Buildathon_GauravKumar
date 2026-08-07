@@ -11,6 +11,8 @@ _MODEL = "gemini-3.5-flash"
 
 _SYSTEM_PROMPT = """You extract structured records from meeting transcripts.
 
+The transcript is numbered, one turn per line like "[3] Priya: ...".
+
 Rules:
 - Only extract what was actually said. Never invent action items, owners, or dates.
 - owner_raw and due_raw must be near-verbatim phrases from the transcript.
@@ -19,6 +21,9 @@ Rules:
 - For "decisions", only include things the room actually agreed on. If people pushed
   back, expressed doubt, or the conversation moved on without real agreement, put
   that under "disagreements" instead - don't flatten it into a decision.
+- For each action item, source_turn is the [n] number of the line where that
+  commitment was actually made or agreed to. Use the real number from the transcript,
+  don't guess if unsure - pick the closest matching turn.
 - Respond with ONLY a JSON object. No prose, no markdown fences."""
 
 _SCHEMA_HINT = """{
@@ -28,7 +33,7 @@ _SCHEMA_HINT = """{
   "open_questions": ["string", ...],
   "risks": ["string", ...],
   "action_items": [
-    {"text": "string", "owner_raw": "string", "due_raw": "string or null", "priority": "low|medium|high", "confidence": 0.0}
+    {"text": "string", "owner_raw": "string", "due_raw": "string or null", "priority": "low|medium|high", "confidence": 0.0, "source_turn": 0}
   ]
 }"""
 

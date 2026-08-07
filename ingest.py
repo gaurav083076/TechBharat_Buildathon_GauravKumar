@@ -1,3 +1,17 @@
+"""
+Ingest a meeting transcript (.txt, .vtt, .srt) into a normalized list of turns.
+
+Each turn is a Turn(speaker, text, start, end) dataclass, where start/end
+are timestamps for .vtt/.srt input, or None for .txt input.
+
+Supported .txt format (simplest, recommended for hand-authored transcripts):
+    Speaker Name: Some sentence they said.
+    Another Speaker: Reply text.
+
+.vtt / .srt: standard subtitle formats. Speaker is parsed from a leading
+"Name:" prefix in the cue text if present, else set to "Unknown".
+"""
+
 from __future__ import annotations
 
 import re
@@ -20,6 +34,11 @@ class Transcript:
     def as_text(self) -> str:
         """Flatten to a speaker-labeled block for LLM consumption."""
         return "\n".join(f"{t.speaker}: {t.text}" for t in self.turns)
+
+    def as_numbered_text(self) -> str:
+        """Same as as_text but each line prefixed with [n] so the model can
+        cite which turn an action item or decision came from."""
+        return "\n".join(f"[{i}] {t.speaker}: {t.text}" for i, t in enumerate(self.turns, 1))
 
 
 _SPEAKER_PREFIX = re.compile(r"^\s*([A-Za-z][A-Za-z .'-]{0,40}):\s*(.*)$")
